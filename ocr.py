@@ -6,6 +6,7 @@ import re
 
 from numba import jit
 
+
 def cvtToBw(image):
 
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -18,9 +19,10 @@ def cvtToBw(image):
     cv2.imwrite(filename, bw_image)
     return filename
 
+
 def imageToText(image):
 
-    tessdata_dir_config = '--tessdata-dir "./langdata"'
+    tessdata_dir_config = '--tessdata-dir "./tessdata"'
 
     bw_image_path = cvtToBw(image)
 
