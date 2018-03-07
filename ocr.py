@@ -26,6 +26,10 @@ def imageToText(image_path):
 
     text = pytesseract.image_to_string(Image.open(
         bw_image_path), lang='tha+eng', config=tessdata_dir_config)
+
     os.remove(bw_image_path)
-    pattern = re.compile('[^a-zA-Z]')
-    return pattern.sub('', text)
+
+    pattern = re.compile('[^a-zA-Z ]')
+    text = pattern.sub('', text)
+
+    return [i for i in text.split() if len(i) >= 3]
