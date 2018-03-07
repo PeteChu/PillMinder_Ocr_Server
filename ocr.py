@@ -4,6 +4,7 @@ import pytesseract
 import os
 import re
 
+from numba import jit
 
 def cvtToBw(image):
 
@@ -17,12 +18,11 @@ def cvtToBw(image):
     cv2.imwrite(filename, bw_image)
     return filename
 
-
-def imageToText(image_path):
+def imageToText(image):
 
     tessdata_dir_config = '--tessdata-dir "./langdata"'
 
-    bw_image_path = cvtToBw(image_path)
+    bw_image_path = cvtToBw(image)
 
     text = pytesseract.image_to_string(Image.open(
         bw_image_path), lang='tha+eng', config=tessdata_dir_config)
@@ -32,4 +32,4 @@ def imageToText(image_path):
     pattern = re.compile('[^a-zA-Z ]')
     text = pattern.sub('', text)
 
-    return [i for i in text.split() if len(i) >= 3]
+    return [i for i in text.split() if len(i) > 3]
