@@ -3,16 +3,16 @@ from crop_image import crop
 from ocr import imageToText
 from difflib import get_close_matches
 
-
 def findMedicineName(medicine_list, text_list):
     for i in text_list:
         close_match = get_close_matches(i, medicine_list, cutoff=0.8)
-        if close_match:
-            return close_match[0]
-    return -1
+    return close_match if close_match else -1
 
 def show_state(msg):
     print('Doing: {}'.format(msg))
+
+def show_time(time):
+    print('Time: {}'.format(time))
 
 if __name__ == '__main__':
 
