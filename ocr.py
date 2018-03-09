@@ -4,6 +4,8 @@ import pytesseract
 import os
 import re
 
+import time
+
 from numba import jit
 
 
@@ -20,18 +22,36 @@ def cvtToBw(image):
     return filename
 
 
+def show_state(msg):
+    print(msg)
+
+
 def imageToText(image):
 
     tessdata_dir_config = '--tessdata-dir "./tessdata"'
 
+    start = time.time()
+
+    show_state("Img2text: cvt2bw {}".format(time.time()))
+
     bw_image_path = cvtToBw(image)
 
+    show_state("Img2text: start ocr {}".format(time.time()))
     text = pytesseract.image_to_string(Image.open(
-        bw_image_path), lang='tha+eng', config=tessdata_dir_config)
+        bw_image_path), lang='tha', config=tessdata_dir_config)
 
-    os.remove(bw_image_path)
+    show_state("Img2text: ocr done {}".format(time.time()))
+    # os.remove(bw_image_path)
 
+    print(text)
+
+    show_state("Img2text: start regex {}".format(time.time()))
     pattern = re.compile('[^a-zA-Z ]')
     text = pattern.sub('', text)
 
+    show_state("Img2text:  regex done {}".format(time.time()))
+
+    stop = time.time()
+
+    print(stop - start)
     return [i for i in text.split() if len(i) > 3]
