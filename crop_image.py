@@ -7,9 +7,9 @@ from numba import jit
 def crop(image_path):
 
     image = cv2.imread(image_path)
-
-    original_image = image
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    resize = cv2.resize(image, (2000, 1000))
+    original_image = resize
+    gray = cv2.cvtColor(original_image, cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(gray, (5, 5), 0)
 
     rect, threshold = cv2.threshold(
