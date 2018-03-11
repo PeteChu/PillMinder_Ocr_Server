@@ -13,9 +13,9 @@ def cvtToBw(image):
 
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    blur = cv2.medianBlur(gray, 3)
+    blur = cv2.GaussianBlur(gray, (5,5), 0)
     rect, bw_image = cv2.threshold(
-        blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+        blur, 127, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
     filename = './images/ocr/{}.jpg'.format(os.getpid())
     cv2.imwrite(filename, bw_image)
@@ -38,7 +38,7 @@ def imageToText(image):
 
     show_state("Img2text: start ocr {}".format(time.time()))
     text = pytesseract.image_to_string(Image.open(
-        bw_image_path), lang='tha', config=tessdata_dir_config)
+        bw_image_path), lang='eng', config=tessdata_dir_config)
 
     show_state("Img2text: ocr done {}".format(time.time()))
     # os.remove(bw_image_path)
