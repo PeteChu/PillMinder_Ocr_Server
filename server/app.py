@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_restful import Resource, Api
+from upload_img import uploadImg
 
 app = Flask(__name__)
 api = Api(app)
@@ -11,6 +12,7 @@ class HelloWorld(Resource):
 
 
 api.add_resource(HelloWorld, '/')
+api.add_resource(uploadImg, '/uploadimg')
 
 if __name__ == '__main__':
     app.run()
