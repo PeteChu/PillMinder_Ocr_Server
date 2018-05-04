@@ -15,5 +15,5 @@ def findMedicineName(text_list):
         if close_matches:
             for i in close_matches:
                 close_match.append(i)
-            
+
     return list(set(close_match)) if close_match else -1
