@@ -14,7 +14,7 @@ def cvtToBw(image):
     rect, bw_image = cv2.threshold(
         blur, 127, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
-    filename = './../images/ocr/{}.jpg'.format(os.getpid())
+    filename = './../images/{}.jpg'.format(os.getpid())
     cv2.imwrite(filename, bw_image)
     return filename
 
